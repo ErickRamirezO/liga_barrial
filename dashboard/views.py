@@ -11,21 +11,86 @@ def equipo_view(request):
     equipos = Equipo.objects.all()
     return render(request, 'equipos.html', {'equipos': equipos})
 
+def ingresar_equipo(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        numero_jugadores = request.POST.get('numero_jugadores')
+        logo = request.FILES.get('logo')
+        slogan = request.POST.get('slogan')
+        presidente = request.POST.get('presidente')
+
+        nuevo_equipo = Equipo(
+            nombre=nombre,
+            numero_jugadores=numero_jugadores,
+            logo=logo,
+            slogan=slogan,
+            presidente=presidente
+        )
+        nuevo_equipo.save()
+
+        return redirect('equipos')
+
+    return render(request, 'ingresar_equipo.html')
+
 def jugador_view(request):
-    jugador = Jugador.objects.all()
-    return render(request, 'jugadores.html', {'jugador': jugador})
+    jugadores = Jugador.objects.all()
+    return render(request, 'jugadores.html', {'jugadores': jugadores})
+
+def ingresar_jugador(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        edad = request.POST.get('edad')
+        cedula = request.POST.get('cedula')
+        dorsal = request.POST.get('dorsal')
+        posicion = request.POST.get('posicion')
+        goles = request.POST.get('goles')
+
+        nuevo_jugador = Jugador(
+            nombre=nombre,
+            apellido=apellido,
+            edad=edad,
+            cedula=cedula,
+            dorsal=dorsal,
+            posicion=posicion,
+            goles=goles
+        )
+        nuevo_jugador.save()
+
+        return redirect('jugadores')
+
+    return render(request, 'ingresar_jugador.html')
 
 def arbitro_view(request):
-    arbitro = Arbitro.objects.all()
-    return render(request, 'arbitro.html', {'arbitro': arbitro})
+    arbitros = Arbitro.objects.all()
+    return render(request, 'arbitro.html', {'arbitros': arbitros})
 
 def partido_view(request):
-    partido = Partido.objects.all()
-    return render(request, 'partido.html', {'partido': partido})
+    partidos = Partido.objects.all()
+    return render(request, 'partido.html', {'partidos': partidos})
 
 def presidente_view(request):
-    presidente = Presidente.objects.all()
-    return render(request, 'presidente.html', {'presidente': presidente})
+    presidentes = Presidente.objects.all()
+    return render(request, 'presidente.html', {'presidente': presidentes})
+
+def ingresar_presidente(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        edad = request.POST.get('edad')
+        cedula = request.POST.get('cedula')
+
+        nuevo_presidente = Presidente(
+            nombre=nombre,
+            apellido=apellido,
+            edad=edad,
+            cedula=cedula
+        )
+        nuevo_presidente.save()
+
+        return redirect('presidente')
+
+    return render(request, 'ingresar_presidente.html')
 
 def vocalias_view(request):
     vocalias = Vocalia.objects.all()

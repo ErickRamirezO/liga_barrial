@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipos</title>
+    <title>Presidentes</title>
     <style>
         /* Estilos CSS similares a los de jugadores.html */
         body {
@@ -195,21 +195,20 @@
 <body>
     <div class="menu">
         <a href="{% url 'dashboard' %}">Regresar al Dashboard</a>
-        <h1 style="margin: 0 auto;">Equipos</h1>
-        <button onclick="openModal()">Agregar Equipo</button>
+        <h1 style="margin: 0 auto;">Presidentes</h1>
+        <button onclick="openModal()">Ingresar Presidente</button>
     </div>
 
     <div class="container">
         <div class="cards">
-            {% for equipo in equipos %}
+            {% for presidente in presidente %}
             <div class="card">
                 <div class="card-content">
-                    <h3>Equipo {{ forloop.counter }}</h3>
-                    <p><strong>Nombre:</strong> {{ equipo.nombre }}</p>
-                    <p><strong>Número de Jugadores:</strong> {{ equipo.numero_jugadores }}</p>
-                    <p><strong>Logo:</strong> <img src="{{ equipo.logo.url }}" alt="{{ equipo.nombre }}" style="max-width: 100px;"></p>
-                    <p><strong>Slogan:</strong> {{ equipo.slogan }}</p>
-                    <p><strong>Presidente:</strong> {{ equipo.presidente }}</p>
+                    <h3>Presidente {{ forloop.counter }}</h3>
+                    <p><strong>Nombre:</strong> {{ presidente.nombre }}</p>
+                    <p><strong>Apellido:</strong> {{ presidente.apellido }}</p>
+                    <p><strong>Edad:</strong> {{ presidente.edad }}</p>
+                    <p><strong>Cédula:</strong> {{ presidente.cedula }}</p>
                     <!-- Agregar más campos según sea necesario -->
                 </div>
             </div>
@@ -217,32 +216,28 @@
         </div>
     </div>
 
-    <!-- Modal para agregar equipo -->
+    <!-- Modal para ingresar presidente -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <div class="form-container">
-                <form id="equipoForm" action="{% url 'ingresar_equipo' %}" method="post" enctype="multipart/form-data">
+                <form id="presidenteForm" action="{% url 'ingresar_presidente' %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="numero_jugadores">Número de Jugadores:</label>
-                        <input type="number" id="numero_jugadores" name="numero_jugadores" required>
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" id="apellido" name="apellido" required>
                     </div>
                     <div class="form-group">
-                        <label for="logo">Logo:</label>
-                        <input type="file" id="logo" name="logo" accept="image/*" required>
+                        <label for="edad">Edad:</label>
+                        <input type="text" id="edad" name="edad" required>
                     </div>
                     <div class="form-group">
-                        <label for="slogan">Slogan:</label>
-                        <input type="text" id="slogan" name="slogan" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="presidente">Presidente:</label>
-                        <input type="text" id="presidente" name="presidente" required>
+                        <label for="cedula">Cédula:</label>
+                        <input type="text" id="cedula" name="cedula" required>
                     </div>
                     <!-- Agregar más campos según sea necesario -->
                     <div class="form-group">
