@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Match, Result, Player, Vocalia
 
 def dashboard_view(request):
@@ -17,18 +17,23 @@ def vocalias_view(request):
 
 def ingresar_vocalia(request):
     if request.method == 'POST':
-        # Si el formulario ha sido enviado, procesar los datos
+        # Obtener datos del formulario
         amonestaciones = request.POST.get('amonestaciones')
         titulares = request.POST.get('titulares')
         anotaciones = request.POST.get('anotaciones')
         faltas = request.POST.get('faltas')
 
         # Guardar los datos en la base de datos
-        nueva_vocalia = Vocalia(amonestaciones=amonestaciones, titulares_del_partido=titulares, jugadores_con_anotaciones=anotaciones, faltas=faltas)
+        nueva_vocalia = Vocalia(
+            amonestaciones=amonestaciones,
+            titulares_del_partido=titulares,
+            jugadores_con_anotaciones=anotaciones,
+            faltas=faltas
+        )
         nueva_vocalia.save()
 
-        # Redireccionar al dashboard u otra página
-        return redirect('vocalia')
+        # Redirigir a la página de vocalías o donde desees
+        return redirect('vocalias')
 
-    # Si no es POST, probablemente mostrar el formulario nuevamente
-    return render(request, 'vocalia.html')
+    # Si no es POST, mostrar el formulario nuevamente
+    return render(request, 'ingresar_vocalia.html')
