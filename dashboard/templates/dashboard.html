@@ -1,5 +1,3 @@
-<!-- templates/dashboard/dashboard.html -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,5 +26,9 @@
         <li>{{ player.user.username }} - Position: {{ player.position }} - Team: {{ player.team }}</li>
     {% endfor %}
     </ul>
+
+    <h2>Vocalías</h2>
+    <button onclick="location.href='{% url 'vocalias' %}'">Ir a Vocalías</button>
+    
 </body>
 </html>
