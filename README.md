@@ -1,12 +1,12 @@
 ## Crear entorno virtual de python
 Primero se crea el entorno para que funcione de mejor forma Django
 ```python
-py -m venv "nombre_environment"
+py -m venv "nombre_environment" .
 ```
 
 ## Activar el virtual environment
 ```python
-nombre_environment\Scripts\activate.bat
+Scripts\activate.bat
 ```
 Y nos debe salir algo como esto en consola
 ```bash
@@ -16,6 +16,11 @@ Esto quiere decir que estamos dentro de nuestro entorno virtual
 
 > [!IMPORTANT]
 > Mover todos los archivos dentro de la carpeta que se creó *nombre_environment*
+
+## Instalar Django
+```python
+pip install django
+```
 
 ## Correr Servidor 💻
 Ingresamos a la carpeta liga, una vez dentro ejecutamos
