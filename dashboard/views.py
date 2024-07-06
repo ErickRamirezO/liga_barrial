@@ -1,15 +1,31 @@
+from django.http import HttpResponse
+from django.template import loader
 from django.shortcuts import render, redirect
-from .models import Match, Result, Player, Vocalia
+from .models import Equipo, Jugador, Arbitro, Partido, Presidente, Vocalia
 
 def dashboard_view(request):
-    matches = Match.objects.all()
-    results = Result.objects.all()
-    players = Player.objects.all()
-    return render(request, 'dashboard.html', {
-        'matches': matches,
-        'results': results,
-        'players': players,
-    })
+    dashboard = loader.get_template('dashboard.html')
+    return HttpResponse(dashboard.render())
+
+def equipo_view(request):
+    equipos = Equipo.objects.all()
+    return render(request, 'equipos.html', {'equipos': equipos})
+
+def jugador_view(request):
+    jugador = Jugador.objects.all()
+    return render(request, 'jugadores.html', {'jugador': jugador})
+
+def arbitro_view(request):
+    arbitro = Arbitro.objects.all()
+    return render(request, 'arbitro.html', {'arbitro': arbitro})
+
+def partido_view(request):
+    partido = Partido.objects.all()
+    return render(request, 'partido.html', {'partido': partido})
+
+def presidente_view(request):
+    presidente = Presidente.objects.all()
+    return render(request, 'presidente.html', {'presidente': presidente})
 
 def vocalias_view(request):
     vocalias = Vocalia.objects.all()

@@ -6,27 +6,21 @@
 <body>
     <h1>Dashboard</h1>
 
-    <h2>Matches</h2>
-    <ul>
-    {% for match in matches %}
-        <li>{{ match.title }} - {{ match.date }}</li>
-    {% endfor %}
-    </ul>
+    <h2>Arbitro</h2>
+    <button onclick="location.href='{% url 'arbitro' %}'">Ir a Vocalías</button>
 
-    <h2>Results</h2>
-    <ul>
-    {% for result in results %}
-        <li>{{ result.match.title }} - Winner: {{ result.winner.username }} - Score: {{ result.score }}</li>
-    {% endfor %}
-    </ul>
+    <h2>Equipos</h2>
+    <button onclick="location.href='{% url 'equipos' %}'">Ir a Equipos</button>
 
-    <h2>Players</h2>
-    <ul>
-    {% for player in players %}
-        <li>{{ player.user.username }} - Position: {{ player.position }} - Team: {{ player.team }}</li>
-    {% endfor %}
-    </ul>
+    <h2>Jugadores</h2>
+    <button onclick="location.href='{% url 'jugador' %}'">Ir a Jugadores</button>
 
+    <h2>Partidos</h2>
+    <button onclick="location.href='{% url 'partido' %}'">Ir a Partidos</button>
+
+    <h2>Presidentes</h2>
+    <button onclick="location.href='{% url 'presidente' %}'">Ir a Presidentes</button>
+    
     <h2>Vocalías</h2>
     <button onclick="location.href='{% url 'vocalias' %}'">Ir a Vocalías</button>
     
