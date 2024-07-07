@@ -7,6 +7,7 @@ def dashboard_view(request):
     dashboard = loader.get_template('dashboard.html')
     return HttpResponse(dashboard.render())
 
+#EQUIPOS
 def equipo_view(request):
     equipos = Equipo.objects.all()
     return render(request, 'equipos.html', {'equipos': equipos})
@@ -32,6 +33,9 @@ def ingresar_equipo(request):
 
     return render(request, 'ingresar_equipo.html')
 
+
+
+#JUGADORES
 def jugador_view(request):
     jugadores = Jugador.objects.all()
     return render(request, 'jugadores.html', {'jugadores': jugadores})
@@ -61,14 +65,46 @@ def ingresar_jugador(request):
 
     return render(request, 'ingresar_jugador.html')
 
+
+#ARBITROS
 def arbitro_view(request):
     arbitros = Arbitro.objects.all()
     return render(request, 'arbitro.html', {'arbitros': arbitros})
 
+
+
+#PARTIDOS
 def partido_view(request):
     partidos = Partido.objects.all()
-    return render(request, 'partido.html', {'partidos': partidos})
+    return render(request, 'partidos.html', {'partidos': partidos})
 
+def ingresar_partidos(request):
+    if request.method == 'POST':
+        estadio = request.POST.get('estadio')
+        equipo = request.POST.get('equipo')
+        fecha = request.POST.get('fecha')
+        arbitro = request.POST.get('arbitro')
+        jugador = request.POST.get('jugador')
+        presidente = request.POST.get('presidente')
+        vocalia = request.POST.get('vocalia')
+        
+        nuevo_partido = Partido(
+            estadio=estadio,
+            equipo=equipo,
+            fecha=fecha,
+            arbitro=arbitro,
+            jugador=jugador,
+            presidente=presidente,
+            vocalia=vocalia  
+        )
+        nuevo_partido.save()
+        
+        return redirect('partido')
+    return render(request, 'ingresar_partido.html')   
+
+
+
+#PRESIDENTE
 def presidente_view(request):
     presidentes = Presidente.objects.all()
     return render(request, 'presidente.html', {'presidente': presidentes})
@@ -92,6 +128,9 @@ def ingresar_presidente(request):
 
     return render(request, 'ingresar_presidente.html')
 
+
+
+#VOCALIAS
 def vocalias_view(request):
     vocalias = Vocalia.objects.all()
     return render(request, 'vocalias.html', {'vocalias': vocalias})

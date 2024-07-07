@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #333;
+        }
+
+        .menu {
+            width: 100%;
+            background-color: #28a745;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .menu a:first-child {
+            margin-left: 0;
+        }
+
+        .menu button {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #218838;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu button:hover {
+            background-color: #1e7e34;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            max-width: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+
+        .card-content p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 101;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .form-group input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="{% url 'dashboard' %}">Regresar al Dashboard</a>
+        <h1 style="margin: 0 auto;">Partidos</h1>
+        <button onclick="openModal()">Agregar Partido</button>
+    </div>
+
+    <div class="container">
+        <div class="cards">
+            {% for partido in partidos %}
+            <div class="card">
+                <div class="card-content">
+                    <h3>Partido {{ forloop.counter }}</h3>
+                    <p><strong>Estadio:</strong> {{ partido.estadio }}</p>
+                    <p><strong>Equipo:</strong> {{ partido.equipo }}</p>
+                    <p><strong>Fecha:</strong> {{ partido.fecha }}</p>
+                    <p><strong>Arbitro:</strong> {{ partido.arbitro }}</p>
+                    <p><strong>Jugador:</strong> {{ partido.jugador }}</p>
+                    <p><strong>Presidente:</strong> {{ partido.presidente }}</p>
+                    <p><strong>Vocalia:</strong> {{ partido.vocalia }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Modal para agregar partido -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="form-container">
+                <form id="partidoForm" action="{% url 'ingresar_partidos' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="estadio">Estadio:</label>
+                        <input type="text" id="estadio" name="estadio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="equipo">Equipo:</label>
+                        <input type="text" id="equipo" name="equipo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="arbitro">Arbitro:</label>
+                        <input type="text" id="arbitro" name="arbitro" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jugador">Jugador:</label>
+                        <input type="text" id="jugador" name="jugador" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="presidente">Presidente:</label>
+                        <input type="text" id="presidente" name="presidente" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vocalia">Vocalia:</label>
+                        <input type="text" id="vocalia" name="vocalia" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Guardar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
