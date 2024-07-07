@@ -1,28 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Dashboard</h1>
-
-    <h2>Arbitro</h2>
-    <button onclick="location.href='{% url 'arbitro' %}'">Ir a Vocalías</button>
-
-    <h2>Equipos</h2>
-    <button onclick="location.href='{% url 'equipos' %}'">Ir a Equipos</button>
-
-    <h2>Jugadores</h2>
-    <button onclick="location.href='{% url 'jugadores' %}'">Ir a Jugadores</button>
-
-    <h2>Partidos</h2>
-    <button onclick="location.href='{% url 'partido' %}'">Ir a Partidos</button>
-
-    <h2>Presidentes</h2>
-    <button onclick="location.href='{% url 'presidente' %}'">Ir a Presidentes</button>
-    
-    <h2>Vocalías</h2>
-    <button onclick="location.href='{% url 'vocalias' %}'">Ir a Vocalías</button>
-    
+    <div class="container">
+        <div class="header">
+            <h1>Dashboard Liga Barrial</h1>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <h2>Arbitro</h2>
+                <button onclick="location.href='{% url 'arbitro' %}'">Ir a Arbitros</button>
+            </div>
+            <div class="card">
+                <h2>Equipos</h2>
+                <button onclick="location.href='{% url 'equipos' %}'">Ir a Equipos</button>
+            </div>
+            <div class="card">
+                <h2>Jugadores</h2>
+                <button onclick="location.href='{% url 'jugadores' %}'">Ir a Jugadores</button>
+            </div>
+            <div class="card">
+                <h2>Partidos</h2>
+                <button onclick="location.href='{% url 'partido' %}'">Ir a Partidos</button>
+            </div>
+            <div class="card">
+                <h2>Presidentes</h2>
+                <button onclick="location.href='{% url 'presidente' %}'">Ir a Presidentes</button>
+            </div>
+            <div class="card">
+                <h2>Vocalías</h2>
+                <button onclick="location.href='{% url 'vocalias' %}'">Ir a Vocalías</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
