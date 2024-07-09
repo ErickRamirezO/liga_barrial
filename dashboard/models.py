@@ -14,7 +14,7 @@ class Persona(models.Model):
         
 class Arbitro(Persona):
     telefono = models.CharField(max_length=20)
-
+    federacion = models.CharField(max_length=100)
     def clone(self):
         return self.__class__(
             id=self.id,
