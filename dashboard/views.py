@@ -71,6 +71,27 @@ def arbitro_view(request):
     arbitros = Arbitro.objects.all()
     return render(request, 'arbitro.html', {'arbitros': arbitros})
 
+def ingresar_arbitro(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        edad = request.POST.get('edad')
+        cedula = request.POST.get('cedula')
+        telefono = request.POST.get('telefono')
+        federacion= request.POST.get('federacion')
+        nuevo_arbitro = Arbitro(
+            nombre=nombre,
+            apellido=apellido,
+            edad=edad,
+            cedula=cedula,
+            telefono=telefono,
+            federacion=federacion
+        )
+        nuevo_arbitro.save()
+
+        return redirect('arbitro')
+
+    return render(request, 'ingresar_arbitro.html')
 
 
 #PARTIDOS
