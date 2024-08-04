@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from .models import Equipo, Jugador, Arbitro, Partido, Presidente, Vocalia
-
+from django.contrib.auth import logout
 def dashboard_view(request):
     dashboard = loader.get_template('dashboard.html')
     return HttpResponse(dashboard.render())
@@ -178,3 +178,7 @@ def ingresar_vocalia(request):
 
     # Si no es POST, mostrar el formulario nuevamente
     return render(request, 'ingresar_vocalia.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
